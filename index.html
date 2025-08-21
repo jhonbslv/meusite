@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NotePrime — Loja de Notebooks | Ofertas e Promoções</title>
+  <meta name="description" content="Compre notebooks com entrega rápida. Promo relâmpago: Notebook Focus 14 por apenas R$ 300,00!" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --panel:#ffffff;
+      --ink:#1d2330;
+      --muted:#6b7280;
+      --primary:#2563eb;           /* azul */
+      --primary-700:#1d4ed8;
+      --accent:#22c55e;            /* verde */
+      --warning:#f59e0b;           /* amarelo */
+      --danger:#ef4444;            /* vermelho */
+      --radius:16px;
+      --shadow:0 14px 28px rgba(30,41,59,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--bg)}
+
+    /* Header */
+    .topbar{position:sticky; top:0; z-index:60; backdrop-filter:saturate(160%) blur(8px); background:rgba(255,255,255,.8); border-bottom:1px solid #e5e7eb}
+    .container{max-width:1260px; margin:0 auto; padding:0 20px}
+    .row{display:flex; align-items:center; gap:16px}
+
+    .brand{display:flex; align-items:center; gap:10px; padding:12px 0}
+    .brand .logo{width:42px; height:42px; border-radius:10px; background:linear-gradient(135deg,#60a5fa,#1d4ed8); box-shadow:inset 0 0 0 3px #ebf2ff, var(--shadow); position:relative}
+    .brand .logo:after{content:''; position:absolute; inset:10px; border-radius:8px; background:radial-gradient(60% 60% at 40% 40%, #ffffffaa, transparent)}
+    .brand .title{font-weight:800; letter-spacing:.3px; font-size:1.4rem}
+
+    .search{flex:1; display:flex; align-items:center; background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:8px 10px; box-shadow:var(--shadow)}
+    .search input{flex:1; border:none; outline:none; padding:8px 10px; font-size:1rem}
+    .search button{border:none; background:var(--primary); color:#fff; padding:10px 16px; border-radius:999px; font-weight:600; cursor:pointer}
+
+    .toolbar{display:flex; align-items:center; gap:10px}
+    .toolbar .link{padding:8px 10px; border-radius:10px; text-decoration:none; color:var(--ink)}
+    .cart{display:inline-flex; gap:6px; align-items:center; background:#fff; border:1px solid #e5e7eb; padding:8px 12px; border-radius:999px}
+
+    /* Banner promo */
+    .promo{margin:18px 0}
+    .promo .wrap{display:grid; grid-template-columns:1.2fr 1fr; gap:18px; background:linear-gradient(135deg,#e0ecff,#f0fff4); border:1px solid #dbeafe; border-radius:20px; overflow:hidden; box-shadow:var(--shadow)}
+    .promo .left{padding:28px}
+    .badge{display:inline-flex; gap:8px; align-items:center; background:#fff; border:1px solid #e5e7eb; padding:6px 12px; border-radius:999px; font-weight:700; color:var(--primary-700)}
+    .promo h1{margin:10px 0 6px; font-size:clamp(1.6rem, 3.5vw, 2.4rem)}
+    .promo p{margin:0; color:var(--muted)}
+    .deal{display:flex; align-items:end; gap:14px; margin:14px 0}
+    .deal .price{font-size:clamp(2rem, 5vw, 2.8rem); font-weight:800; color:var(--accent)}
+    .deal .cut{color:#9ca3af; text-decoration:line-through}
+    .timer{display:flex; gap:10px; margin:10px 0}
+    .tick{background:#111827; color:#fff; padding:10px 12px; border-radius:12px; text-align:center}
+    .tick small{display:block; font-size:.7rem; opacity:.8}
+    .promo .cta{display:flex; gap:12px; margin-top:12px}
+    .btn{border:none; border-radius:12px; padding:12px 16px; font-weight:700; cursor:pointer; box-shadow:var(--shadow)}
+    .btn-primary{background:var(--primary); color:#fff}
+    .btn-primary:hover{background:var(--primary-700)}
+    .btn-ghost{background:#fff}
+
+    .promo .right{position:relative; background:#f8fafc}
+    .promo img{width:100%; height:100%; object-fit:cover}
+    .flags{position:absolute; left:14px; top:14px; display:flex; gap:6px}
+    .flag{background:#111827; color:#fff; font-size:.8rem; padding:6px 8px; border-radius:10px}
+
+    /* Layout */
+    .layout{display:grid; grid-template-columns:280px 1fr; gap:18px; margin-top:18px}
+
+    /* Sidebar */
+    .side{background:var(--panel); border:1px solid #e5e7eb; border-radius:18px; padding:16px; box-shadow:var(--shadow); position:sticky; top:86px; height:max-content}
+    .side h3{margin:6px 0 10px}
+    .filter{border-top:1px dashed #e5e7eb; padding-top:10px; margin-top:10px}
+    .check{display:flex; align-items:center; gap:8px; margin:6px 0}
+    .price-range{display:flex; gap:10px}
+    .price-range input{width:100%;}
+
+    /* Content */
+    .content{display:flex; flex-direction:column; gap:16px}
+    .sort{display:flex; align-items:center; justify-content:space-between}
+    .sort .select{background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 10px}
+
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .card{background:#fff; border:1px solid #e5e7eb; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column}
+    .thumb{position:relative; aspect-ratio:4/3; overflow:hidden}
+    .thumb img{width:100%; height:100%; object-fit:cover; transition:transform .5s}
+    .card:hover .thumb img{transform:scale(1.05)}
+    .label{position:absolute; left:10px; top:10px; background:#111827; color:#fff; padding:6px 10px; border-radius:999px; font-size:.8rem}
+    .body{padding:14px}
+    .title{font-weight:700}
+    .stars{color:#f59e0b; letter-spacing:1px}
+    .meta{color:var(--muted); font-size:.9rem}
+    .price{display:flex; align-items:center; justify-content:space-between; margin-top:6px}
+    .price strong{font-size:1.2rem}
+
+    /* Trust + FAQ */
+    .trust{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+    .trust .tile{background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:14px; text-align:center}
+
+    details{background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; box-shadow:var(--shadow)}
+    summary{cursor:pointer; font-weight:700}
+
+    /* Footer */
+    footer{margin:28px 0 0; padding:28px 0; border-top:1px solid #e5e7eb}
+    .footgrid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:18px}
+    footer a{color:var(--ink); text-decoration:none}
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .promo .wrap{grid-template-columns:1fr}
+      .layout{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .footgrid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:640px){
+      .search{display:none}
+      .grid{grid-template-columns:1fr}
+      .trust{grid-template-columns:1fr 1fr}
+      .footgrid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container row" style="justify-content:space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">NotePrime</div>
+      </div>
+      <form class="search" onsubmit="event.preventDefault(); alert('Buscando por: '+this.q.value)">
+        <input name="q" type="search" placeholder="Buscar notebooks, marcas, acessórios…" />
+        <button type="submit">Buscar</button>
+      </form>
+      <div class="toolbar">
+        <a class="link" href="#">Minha conta</a>
+        <div class="cart" role="button" onclick="openCart()">🛒 <span id="cartCount">0</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Promo principal -->
+  <section class="container promo">
+    <div class="wrap">
+      <div class="left">
+        <span class="badge">🔥 Promo relâmpago</span>
+        <h1>Notebook Focus 14 — 8GB RAM, 256GB SSD</h1>
+        <p>Perfeito para estudos, trabalho e navegação. Leve, silencioso e com bateria para o dia todo.</p>
+
+        <div class="deal">
+          <div class="price">R$ 300,00</div>
+          <div class="cut">R$ 1.899,00</div>
+          <span class="flag" style="background:var(--danger); color:#fff; padding:6px 10px; border-radius:10px">70% OFF</span>
+        </div>
+
+        <div class="timer" aria-label="Tempo restante da oferta">
+          <div class="tick"><span id="hh">00</span><small>horas</small></div>
+          <div class="tick"><span id="mm">00</span><small>min</small></div>
+          <div class="tick"><span id="ss">00</span><small>seg</small></div>
+        </div>
+
+        <div class="cta">
+          <button class="btn btn-primary" onclick="addToCart('Notebook Focus 14', 300)">Adicionar ao carrinho</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Ver avaliações</button>
+        </div>
+        <p class="meta">Estoque limitado • Envio rápido para todo o Brasil • Garantia de 12 meses</p>
+      </div>
+      <div class="right">
+        <div class="flags">
+          <span class="flag">Frete grátis</span>
+          <span class="flag" style="background:#2563eb">Devolução em 7 dias</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Notebook aberto em uma mesa"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Listagem com filtros -->
+  <main class="container layout">
+    <!-- Sidebar -->
+    <aside class="side" aria-label="Filtros">
+      <h3>Filtrar por</h3>
+
+      <div class="filter">
+        <strong>Marca</strong>
+        <label class="check"><input type="checkbox" onchange="filter('marca','NotePrime',this.checked)"> NotePrime</label>
+        <label class="check"><input type="checkbox" onchange="filter('marca','Acer',this.checked)"> Acer</label>
+        <label class="check"><input type="checkbox" onchange="filter('marca','Dell',this.checked)"> Dell</label>
+        <label class="check"><input type="checkbox" onchange="filter('marca','Lenovo',this.checked)"> Lenovo</label>
+      </div>
+
+      <div class="filter">
+        <strong>Processador</strong>
+        <label class="check"><input type="checkbox" onchange="filter('cpu','i3',this.checked)"> Intel i3</label>
+        <label class="check"><input type="checkbox" onchange="filter('cpu','i5',this.checked)"> Intel i5</label>
+        <label class="check"><input type="checkbox" onchange="filter('cpu','ryzen3',this.checked)"> Ryzen 3</label>
+        <label class="check"><input type="checkbox" onchange="filter('cpu','ryzen5',this.checked)"> Ryzen 5</label>
+      </div>
+
+      <div class="filter">
+        <strong>Memória</strong>
+        <label class="check"><input type="checkbox" onchange="filter('ram','8',this.checked)"> 8 GB</label>
+        <label class="check"><input type="checkbox" onchange="filter('ram','16',this.checked)"> 16 GB</label>
+      </div>
+
+      <div class="filter">
+        <strong>Preço</strong>
+        <div class="price-range">
+          <input type="number" id="min" placeholder="Mín" value="0" min="0" oninput="applyPrice()">
+          <input type="number" id="max" placeholder="Máx" value="5000" min="0" oninput="applyPrice()">
+        </div>
+      </div>
+
+      <button class="btn" style="width:100%; margin-top:8px" onclick="clearFilters()">Limpar filtros</button>
+    </aside>
+
+    <!-- Content -->
+    <section class="content">
+      <div class="sort">
+        <div>
+          <strong>Notebooks em destaque</strong>
+          <div class="meta">Ofertas recomendadas para você</div>
+        </div>
+        <select class="select" onchange="sortBy(this.value)">
+          <option value="relevance">Ordenar: Relevância</option>
+          <option value="priceAsc">Menor preço</option>
+          <option value="priceDesc">Maior preço</option>
+          <option value="rating">Melhor avaliação</option>
+        </select>
+      </div>
+
+      <div id="grid" class="grid" role="list"></div>
+
+      <!-- Trust signals -->
+      <div class="trust">
+        <div class="tile">🔒 Pagamento 100% seguro</div>
+        <div class="tile">🚚 Envio em até 24h</div>
+        <div class="tile">💬 Suporte por WhatsApp</div>
+        <div class="tile">🏷️ Nota fiscal e garantia</div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px">
+        <details>
+          <summary>Quais são as formas de pagamento?</summary>
+          Aceitamos cartão de crédito, PIX e boleto. Parcelamento em até 10x sem juros em cartões elegíveis.
+        </details>
+        <details>
+          <summary>Como funciona a devolução?</summary>
+          Você tem até 7 dias após o recebimento para solicitar devolução. O produto deve estar sem uso e com todos os acessórios.
+        </details>
+        <details>
+          <summary>É produto novo?</summary>
+          Sim, todos os notebooks são novos, com nota fiscal e garantia do fabricante.
+        </details>
+      </div>
+
+      <!-- Reviews -->
+      <section id="reviews">
+        <h3>Avaliações do Notebook Focus 14</h3>
+        <div class="card" style="padding:14px">
+          <div class="stars" aria-label="4.7 de 5">★★★★★ 4,7/5 (1.284 avaliações)</div>
+          <ul>
+            <li>“Chegou muito rápido e roda tranquilo as tarefas do dia a dia.” — Carol, SP</li>
+            <li>“Teclado confortável e tela boa para estudar.” — Renan, PR</li>
+            <li>“Pelo preço da promoção, não tem igual.” — Júlia, RJ</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footgrid">
+      <div>
+        <strong>NotePrime</strong>
+        <p class="meta">CNPJ 00.000.000/0000-00 • Todos os direitos reservados.</p>
+      </div>
+      <div>
+        <strong>Ajuda</strong><br>
+        <a href="#">Central de atendimento</a><br>
+        <a href="#">Trocas e devoluções</a>
+      </div>
+      <div>
+        <strong>Institucional</strong><br>
+        <a href="#">Quem somos</a><br>
+        <a href="#">Política de privacidade</a>
+      </div>
+      <div>
+        <strong>Contatos</strong><br>
+        <a href="#">WhatsApp</a><br>
+        <a href="#">E-mail</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ======= Countdown da oferta (3h a partir do carregamento) =======
+    const end = Date.now() + 3*60*60*1000;
+    const pad = n => String(n).padStart(2,'0');
+    setInterval(()=>{
+      const diff = Math.max(0, end - Date.now());
+      const h = Math.floor(diff/3_600_000);
+      const m = Math.floor((diff%3_600_000)/60_000);
+      const s = Math.floor((diff%60_000)/1000);
+      document.getElementById('hh').textContent=pad(h);
+      document.getElementById('mm').textContent=pad(m);
+      document.getElementById('ss').textContent=pad(s);
+    }, 1000);
+
+    // ======= Catálogo (mock) =======
+    const products = [
+      {id:1, title:'Notebook Focus 14 (Promo R$ 300)', brand:'NotePrime', cpu:'i5', ram:'8', price:300, rating:4.7, img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', label:'Oferta do dia'},
+      {id:2, title:'Acer Swift 3 14" Ryzen 5, 16GB, 512GB SSD', brand:'Acer', cpu:'ryzen5', ram:'16', price:3899, rating:4.6, img:'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop', label:'Mais vendido'},
+      {id:3, title:'Dell Inspiron 15 i5, 16GB, 512GB SSD', brand:'Dell', cpu:'i5', ram:'16', price:4299, rating:4.4, img:'https://images.unsplash.com/photo-1516542076529-1ea3854896e1?q=80&w=1200&auto=format&fit=crop'},
+      {id:4, title:'Lenovo IdeaPad 3 Ryzen 3, 8GB, 256GB SSD', brand:'Lenovo', cpu:'ryzen3', ram:'8', price:2499, rating:4.3, img:'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&auto=format&fit=crop'},
+      {id:5, title:'Acer Aspire 5 i3, 8GB, 256GB SSD', brand:'Acer', cpu:'i3', ram:'8', price:2199, rating:4.2, img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop'},
+      {id:6, title:'Dell Vostro 14 i5, 8GB, 256GB SSD', brand:'Dell', cpu:'i5', ram:'8', price:3099, rating:4.1, img:'https://images.unsplash.com/photo-1527443224154-c4fd4a86b1f5?q=80&w=1200&auto=format&fit=crop'}
+    ];
+
+    const state = {filters:{marca:new Set(), cpu:new Set(), ram:new Set(), min:0, max:5000}, sort:'relevance'};
+
+    function render(){
+      const grid = document.getElementById('grid');
+      let list = products.filter(p=> p.price>=state.filters.min && p.price<=state.filters.max);
+      if(state.filters.marca.size) list = list.filter(p=> state.filters.marca.has(p.brand));
+      if(state.filters.cpu.size) list = list.filter(p=> state.filters.cpu.has(p.cpu));
+      if(state.filters.ram.size) list = list.filter(p=> state.filters.ram.has(p.ram));
+
+      if(state.sort==='priceAsc') list.sort((a,b)=>a.price-b.price);
+      if(state.sort==='priceDesc') list.sort((a,b)=>b.price-a.price);
+      if(state.sort==='rating') list.sort((a,b)=>b.rating-a.rating);
+
+      grid.innerHTML = list.map(p=>card(p)).join('');
+    }
+
+    function card(p){
+      return `
+      <article class="card" role="listitem">
+        <div class="thumb">
+          ${p.label?`<span class="label">${p.label}</span>`:''}
+          <img loading="lazy" src="${p.img}" alt="${p.title}"/>
+        </div>
+        <div class="body">
+          <div class="title">${p.title}</div>
+          <div class="stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))} <span class="meta">(${p.rating.toFixed(1)})</span></div>
+          <div class="price">
+            <strong>R$ ${p.price.toLocaleString('pt-BR',{minimumFractionDigits:2})}</strong>
+            <button class="btn btn-primary" onclick="addToCart('${p.title}', ${p.price})">Comprar</button>
+          </div>
+          <div class="meta">Marca: ${p.brand} • CPU: ${p.cpu.toUpperCase()} • RAM: ${p.ram}GB</div>
+        </div>
+      </article>`;
+    }
+
+    // Filtros
+    function filter(type, value, checked){
+      const set = state.filters[type];
+      checked ? set.add(value) : set.delete(value);
+      render();
+    }
+    function applyPrice(){
+      state.filters.min = Number(document.getElementById('min').value||0);
+      state.filters.max = Number(document.getElementById('max').value||999999);
+      render();
+    }
+    function clearFilters(){
+      state.filters = {marca:new Set(), cpu:new Set(), ram:new Set(), min:0, max:5000};
+      document.querySelectorAll('.side input[type="checkbox"]').forEach(i=>i.checked=false);
+      document.getElementById('min').value=0; document.getElementById('max').value=5000;
+      render();
+    }
+
+    // Ordenação
+    function sortBy(v){ state.sort=v; render(); }
+
+    // Carrinho básico
+    const cart=[];
+    function addToCart(name, price){ cart.push({name,price}); updateCart(); alert(`${name} adicionado ao carrinho!`); }
+    function updateCart(){ document.getElementById('cartCount').textContent = cart.length; }
+    function openCart(){
+      if(!cart.length) return alert('Seu carrinho está vazio.');
+      const total = cart.reduce((s,i)=>s+i.price,0);
+      alert('Itens:\n\n'+cart.map(i=>`• ${i.name} — R$ ${i.price.toFixed(2)}`).join('\n')+`\n\nTotal: R$ ${total.toFixed(2)}`);
+    }
+
+    render();
+  </script>
+</body>
+</html>
